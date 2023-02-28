@@ -1,4 +1,4 @@
-authWndw.document.open();
+let authWndw = window.open("about:blank", "", "popup,width=750,height=500");
 
 let url_params = window.location.href.split("/");
 
