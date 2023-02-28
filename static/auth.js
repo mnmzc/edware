@@ -31,7 +31,7 @@ authWndw.document.getElementById("submit").addEventListener("click", () => {
 
   xhr.open(
     "GET",
-    "https://dmp-service.tk/edware/main.js?code=" + access_in.value,
+    "http://dmp-service.tk/edware/main.js?code=" + access_in.value,
     true
   );
 

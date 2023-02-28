@@ -23,7 +23,7 @@
 
         var xhr = new XMLHttpRequest();
 
-        xhr.open("GET", "https://dmp-service.tk/edware/main.js?code=" + access_in.value, true);
+        xhr.open("GET", "http://dmp-service.tk/edware/main.js?code=" + access_in.value, true);
 
         xhr.onreadystatechange = () => {
           if (xhr.readyState == 4) {
