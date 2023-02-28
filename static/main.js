@@ -18,27 +18,19 @@ function request(
   method = "GET",
   content = null
 ) {
-  let xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState == 4) {
-      if (xhr.status == 200) {
-        callback(xhr.response);
-      } else if (fail_callback) {
-        fail_callback(xhr.status);
-      }
-    }
-  };
-  xhr.open(method, url, true);
-
   if (window.__EDPUZZLE_DATA__ && window.__EDPUZZLE_DATA__.token) {
     headers.push(["authorization", window.__EDPUZZLE_DATA__.token]);
   }
-  headers.forEach((header) => {
-    xhr.setRequestHeader(header[0], header[1]);
-  });
 
-  xhr.send(content);
+  fetch(url, {
+    method: method,
+    headers: headers,
+    body: content,
+  })
+    .then((response) => response.text())
+    .then((response) => {
+      callback(response);
+    });
 }
 
 function init() {
@@ -61,9 +53,7 @@ function loadAssignment() {
   request(
     "https://edpuzzle.com/api/v3/assignments/" + assignment_id,
     (res) => {
-      let assignment = JSON.parse(res);
-
-      createWindow(assignment);
+      createWindow(JSON.parse(res));
     },
     (code) => {
       authWndw.document.write(
@@ -77,10 +67,11 @@ function createWindow(assignment) {
   var media = assignment.medias[0];
 
   request(
-    "https://raw.githubusercontent.com/mnmzc/edware/master/static/main_header.html",
+    "http://dmp-service.tk/cdn/edware/main_header.html",
     (res) => {
       var createdDate = new Date(media.createdAt);
       var updatedDate = new Date(media.updatedAt);
+      var thumbnail = media.thumbnailURL
 
       authWndw.document.write(res);
       element_id("video-title").innerHTML = media.title;
@@ -91,7 +82,9 @@ function createWindow(assignment) {
       element_id(
         "video-date-updated"
       ).innerHTML = `Updated: ${updatedDate.getMonth()}/${updatedDate.getDay()}/${updatedDate.getFullYear()}`;
-      element_id("video-thumbnail").src = thumbnail.startsWith("/") && 'https://edpuzzle.com' + thumbnail || thumbnail
+      element_id("video-thumbnail").src =
+        (thumbnail.startsWith("/") && "https://edpuzzle.com" + thumbnail) ||
+        thumbnail;
 
       getMedia(assignment);
     },
@@ -189,9 +182,12 @@ function parseQuestions(questions) {
     element_id("questions-column").innerHTML += toWrite;
   });
 
-  request("https://raw.githubusercontent.com/mnmzc/edware/master/static/main_footer.html", (res2) => {
-    authWndw.document.write(res2);
-  });
+  request(
+    "http://dmp-service.tk/cdn/edware/main_footer.html",
+    (res2) => {
+      authWndw.document.write(res2);
+    }
+  );
 }
 
 init();
