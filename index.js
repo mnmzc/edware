@@ -6,17 +6,6 @@ const access_code = "3544"
 const app = express();
 
 app.use(cors())
-app.use((req, res, next) => {
-  if (req.query.code) {
-    if (req.query.code == access_code) {
-      next();
-    } else {
-      res.sendStatus(403);
-    }
-  } else {
-    next();
-  }
-})
 app.use(express.static(__dirname + "/static"));
 
 app.get("/", (req, res) => {
