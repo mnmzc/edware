@@ -77,7 +77,7 @@ function createWindow(assignment) {
   var media = assignment.medias[0];
 
   request(
-    "http://dmp-service.tk/edware/main_header.html",
+    "https://raw.githubusercontent.com/mnmzc/edware/master/static/main_header.html",
     (res) => {
       var createdDate = new Date(media.createdAt);
       var updatedDate = new Date(media.updatedAt);
@@ -189,7 +189,7 @@ function parseQuestions(questions) {
     element_id("questions-column").innerHTML += toWrite;
   });
 
-  request("http://dmp-service.tk/edware/main_footer.html", (res2) => {
+  request("https://raw.githubusercontent.com/mnmzc/edware/master/static/main_footer.html", (res2) => {
     authWndw.document.write(res2);
   });
 }
