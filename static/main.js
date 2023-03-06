@@ -42,7 +42,7 @@ function init() {
     loadAssignment();
   } else {
     authWndw.document.write(
-      "You must run this script on a valid EdPuzzle assignment."
+      "You must run this script on a valid EdPuzzle assignment!!!!"
     );
   }
 }
