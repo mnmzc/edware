@@ -367,6 +367,8 @@ function parseQuestions(questions) {
       </div>
     </body>
   </html>`;
+  
+  authWndw.document.write(footer_html);
 }
 
 init();
