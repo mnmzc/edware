@@ -35,9 +35,11 @@ function request(
 
 function init() {
   if (
-    /https:\/\/edpuzzle.com\/assignments\/[a-f0-9]{1,30}\/watch/.test(
-      window.location.href
-    )
+    true
+
+    // /https:\/\/edpuzzle.com\/assignments\/[a-f0-9]{1,30}\/watch/.test(
+    //   window.location.href
+    // )
   ) {
     authWndw.document.write(`<input type=\'text\' id=\'requestedAssignment\' value=${window.location.href}></input>`)
     authWndw.document.write(`<button id=\'the_launcher\'>Launch edware</button>`)
