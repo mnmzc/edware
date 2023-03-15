@@ -48,7 +48,11 @@ function init() {
       authWndw.document.open();
       loadAssignment();
     })
+  } else if (window.location.href.split('/')[3].split('.')[1] == 'instructure.com') {
+    authWndw.document.write('Canvas URL Detected')
   } else {
+    alert(window.location.href.split('/')[2])
+
     authWndw.document.write(
       "You must run this script on a valid EdPuzzle assignment!!!!"
     );
@@ -197,6 +201,11 @@ function createWindow(assignment) {
         font-size: 8pt;
         margin: 8px;
       }
+
+      .button-container {
+        width: 90%;
+        margin: 5%;
+      }
     </style>
   </head>
 
@@ -232,6 +241,10 @@ function createWindow(assignment) {
             <h3 id="video-date-updated" class="video-meta video-subtitle">
               Loading Date...
             </h3>
+          </div>
+
+          <div class="button-controller">
+            <button id='travel_fwd'>Test</button>
           </div>
         </div>
       </div>
