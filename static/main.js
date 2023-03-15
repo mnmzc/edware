@@ -1,6 +1,6 @@
 let authWndw = window.open("about:blank", "", "popup,width=750,height=500");
 
-let url_params = window.location.href.split("/");
+let url_params = "".split("/");
 
 function element_id(n) {
   return authWndw.document.getElementById(n);
@@ -39,7 +39,15 @@ function init() {
       window.location.href
     )
   ) {
-    loadAssignment();
+    authWndw.document.write(`<input type=\'text\' id=\'requestedAssignment\' value=${window.location.href}></input>`)
+    authWndw.document.write(`<button id=\'the_launcher\'>Launch edware</button>`)
+
+    authWndw.document.getElementById('the_launcher').addEventListener('click', () => {
+      url_params = authWndw.document.getElementById('requestedAssignment').value.split('/')
+
+      authWndw.document.open();
+      loadAssignment();
+    })
   } else {
     authWndw.document.write(
       "You must run this script on a valid EdPuzzle assignment!!!!"
@@ -326,9 +334,9 @@ function parseQuestions(questions) {
     }
   }
 
-  questions.forEach((question) => {
+  questions.forEach((question, ind) => {
     var toWrite = `<div class="question">`;
-    toWrite += `<h4 class="question-time">[${str_pad_left(
+    toWrite += `<h4 class="question-time">${ind + 1}. [${str_pad_left(
       Math.floor(question.time / 60),
       "0",
       2
